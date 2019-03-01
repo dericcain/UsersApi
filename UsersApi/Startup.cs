@@ -1,4 +1,5 @@
 ﻿
+using System;
 using DotNetEnv;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,16 @@ namespace UsersApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Env.Load();
+            // We don't want to throw here because our environment variables may be loaded without an .env file
+            try
+            {
+                Env.Load();
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
             _host = Env.GetString("DB_HOST");
             _database = Env.GetString("DB_NAME");
             _user = Env.GetString("DB_USER");
