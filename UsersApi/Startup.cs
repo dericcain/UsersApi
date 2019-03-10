@@ -47,7 +47,7 @@ namespace UsersApi
             services.AddDbContext<UsersDbContext>(options =>
                 options.UseMySql($"Server={_host};Database={_database};User={_user};Password={_password}"));
             services.AddCors(options =>
-                options.AddPolicy(MyAllowedOrigins, builder => { builder.WithOrigins("http://localhost:3000"); }));
+                options.AddPolicy(MyAllowedOrigins, builder => { builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials(); }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
