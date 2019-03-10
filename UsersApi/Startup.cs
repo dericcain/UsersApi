@@ -37,6 +37,7 @@ namespace UsersApi
             _password = Env.GetString("DB_PASSWORD");
         }
 
+        private readonly string MyAllowedOrigins = "_myAllowOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -45,6 +46,8 @@ namespace UsersApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<UsersDbContext>(options =>
                 options.UseMySql($"Server={_host};Database={_database};User={_user};Password={_password}"));
+            services.AddCors(options =>
+                options.AddPolicy(MyAllowedOrigins, builder => { builder.WithOrigins("http://localhost:3000"); }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
