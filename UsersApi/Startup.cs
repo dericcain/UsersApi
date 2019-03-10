@@ -67,6 +67,7 @@ namespace UsersApi
                 app.UseHsts();
             }
 
+            app.UseCors(MyAllowedOrigins);
             app.UseHttpsRedirection();
             app.UseMvc();
         }
